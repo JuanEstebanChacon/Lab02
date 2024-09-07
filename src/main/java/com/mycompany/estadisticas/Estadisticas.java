@@ -32,7 +32,15 @@ public class Estadisticas {
         double mediana = calcularMediana(arr);
         System.out.println("Mediana: " + mediana);
         
-     
+        // Cálculo de varianza
+        double varianza = calcularVarianza(arr, media);
+        System.out.println("Varianza: " + varianza);
+        
+        // Cálculo de desviación estándar
+        double desviacionEstandar = Math.sqrt(varianza);
+        System.out.println("Desviacion Estandar: " + desviacionEstandar);
+        
+        
     }
     
     // Método para calcular la media
@@ -53,6 +61,14 @@ public class Estadisticas {
             return arr[arr.length / 2];
         }
     }
-      
+    
+    // Método para calcular la varianza
+    public static double calcularVarianza(int[] arr, double media) {
+        double suma = 0;
+        for (int num : arr) {
+            suma += Math.pow(num - media, 2);
+        }
+        return suma / arr.length;
+    }
     
     }
