@@ -12,12 +12,12 @@ public class Estadisticas {
         Random rand = new Random();
         
         // Solicitar el tamaño del arreglo
-        System.out.print("Ingrese el tamano del arreglo: ");
-        int tam = sc.nextInt();
+        System.out.print("Ingrese el tamaño del arreglo: ");
+        int size = sc.nextInt();
         
         // Crear y llenar el arreglo con números aleatorios
-        int[] arr = new int[tam];
-        for (int i = 0; i < tam; i++) {
+        int[] arr = new int[size];
+        for (int i = 0; i < size; i++) {
             arr[i] = rand.nextInt(100); // Rango de 0 a 99
         }
         
@@ -38,9 +38,15 @@ public class Estadisticas {
         
         // Cálculo de desviación estándar
         double desviacionEstandar = Math.sqrt(varianza);
-        System.out.println("Desviacion Estandar: " + desviacionEstandar);
+        System.out.println("Desviación Estándar: " + desviacionEstandar);
         
-        
+        // Cálculo de moda
+        int moda = calcularModa(arr);
+        if (moda != Integer.MIN_VALUE) {
+            System.out.println("Moda: " + moda);
+        } else {
+            System.out.println("Moda: No existe una moda única");
+        }
     }
     
     // Método para calcular la media
@@ -71,4 +77,27 @@ public class Estadisticas {
         return suma / arr.length;
     }
     
+    // Método para calcular la moda
+    public static int calcularModa(int[] arr) {
+        Map<Integer, Integer> frecuencias = new HashMap<>();
+        for (int num : arr) {
+            frecuencias.put(num, frecuencias.getOrDefault(num, 0) + 1);
+        }
+        
+        int maxFrecuencia = 0;
+        int moda = Integer.MIN_VALUE;
+        boolean hayUnicaModa = true;
+        
+        for (Map.Entry<Integer, Integer> entry : frecuencias.entrySet()) {
+            if (entry.getValue() > maxFrecuencia) {
+                maxFrecuencia = entry.getValue();
+                moda = entry.getKey();
+                hayUnicaModa = true;
+            } else if (entry.getValue() == maxFrecuencia) {
+                hayUnicaModa = false;
+            }
+        }
+        
+        return hayUnicaModa ? moda : Integer.MIN_VALUE;
     }
+}
