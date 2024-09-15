@@ -28,7 +28,22 @@ public class Vocalesletras {
         return caracterMasRepetido;
     }
 
-  
+    // Método para sustituir las vocales por el carácter más repetido
+    public static String sustituirVocales(String linea, char caracterSustituto) {
+        StringBuilder nuevaLinea = new StringBuilder();
+        Set<Character> vocales = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
+
+        for (char c : linea.toCharArray()) {
+            if (vocales.contains(c)) {
+                nuevaLinea.append(caracterSustituto);
+            } else {
+                nuevaLinea.append(c);
+            }
+        }
+        
+        return nuevaLinea.toString();
+    }
+
     // Método principal
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -38,8 +53,16 @@ public class Vocalesletras {
         String linea = scanner.nextLine();
         
         // Obtener el carácter que más se repite
-        char caracterMasRepetido = obtenerCaracterMasRepetido(linea);        
+        char caracterMasRepetido = obtenerCaracterMasRepetido(linea);
+        
+        // Sustituir las vocales por el carácter más repetido
+        String lineaModificada = sustituirVocales(linea, caracterMasRepetido);
+        
+        // Invertir la línea
+        String lineaInvertida = new StringBuilder(lineaModificada).reverse().toString();
+        
         // Mostrar el resultado
-        System.out.println("Caracter mas repetido: " + caracterMasRepetido);
+        System.out.println("Resultado final: " + lineaInvertida);
     }
 }
+
